@@ -111,7 +111,9 @@ print("Wikiedit Version alpha 0.1 branch 0")
 while True:
     try:
         command = str(input("Wikiedit > ")).split( )
-        if command[0] == "edit":
+        if command == []:
+            placeholder = "hiuygtrewt7"
+        elif command[0] == "edit":
             edit(url,command[1],token("csrf",url))
         elif command[0] == "login":
             username = str(input("Enter username: "))
