@@ -129,3 +129,6 @@ while True:
     except KeyboardInterrupt:
         print()
         pass
+    except EOFError:
+        print()
+        exit(1)
