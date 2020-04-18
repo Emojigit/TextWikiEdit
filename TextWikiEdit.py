@@ -11,9 +11,17 @@ import datetime
 S = requests.Session()
 
 username = getpass.getuser()
-url = str(input("Please type the place of api.php: [https://zh.wikipedia.org/w/api.php] "))
-if url == "":
-    url = "https://zh.wikipedia.org/w/api.php"
+url1 = str(input("Please type the place of api.php: [https://zh.wikipedia.org/w] "))
+if url1 == "":
+    url1 = "https://zh.wikipedia.org/w"
+url = url1 + "/api.php"
+urlthumb = url1 + "/thumb.php"
+
+def countlist(l):
+    lc = 0
+    for b in l:
+        lc = lc + 1
+    return lc
 
 def token(tokentype,url):
     PARAMS_TOKEN = {
@@ -106,7 +114,7 @@ def view(url,pagename):
         os.system("less /tmp/Wikiedit" + username)
 
 def credits():
-    print("Wikiedit Version alpha 0.1 branch 0")
+    print("Wikiedit Version stable 1.5 branch 0")
     print("Author: Emojiwiki")
     print("Licence: CC BY-SA 3.0")
 
@@ -116,7 +124,16 @@ def help():
     print("edit : Edit a page")
     print("exit : Exit TextWikiEdit")
 
-print("Wikiedit Version beta 1.0 branch 0")
+def getimage(url,img):
+    PARAMS_getimage ={
+        "f":str(img),
+        "w":9999
+    }
+    newFileByteArray = bytearray(requests.get(url,params=PARAMS_getimage).content)
+    newFile = open(str(img), "wb+")
+    newFile.write(newFileByteArray)
+
+print("Wikiedit Version stable 1.5 branch 0")
 print("Type \"credits\", \"help\" for more information.")
 while True:
     try:
@@ -124,18 +141,29 @@ while True:
         if command == []:
             placeholder = "hiuygtrewt7"
         elif command[0] == "edit":
-            edit(url,command[1],token("csrf",url))
+            if countlist(command) == 1:
+                print("Missing args: Title")
+            else:
+                edit(url,command[1],token("csrf",url))
         elif command[0] == "login":
             username = str(input("Enter username: "))
             userpasswd = getpass.getpass(prompt="Enter password: ")
             login(url,username,userpasswd,token("login",url))
             userpasswd = "0164393648351932643849"
         elif command[0] == "view":
-            view(url,command[1])
+            if countlist(command) == 1:
+                print("Missing args: Title")
+            else:
+                view(url,command[1])
         elif command[0] == "credits":
             credits()
         elif command[0] == "help":
             help()
+        elif command[0] == "getimage":
+            if countlist(command) == 1:
+                print("Missing args: Image")
+            else:
+                getimage(urlthumb,command[1])
         elif command[0] == "exit":
             exit(1)
         else:
