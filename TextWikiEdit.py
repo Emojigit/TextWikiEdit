@@ -11,11 +11,12 @@ import datetime
 S = requests.Session()
 
 username = getpass.getuser()
-url1 = str(input("Please type the place of api.php: [https://zh.wikipedia.org/w] "))
-if url1 == "":
-    url1 = "https://zh.wikipedia.org/w"
-url = url1 + "/api.php"
-urlthumb = url1 + "/thumb.php"
+def chroot():
+    url1 = str(input("Please type the place of api.php: [https://zh.wikipedia.org/w] "))
+    if url1 == "":  
+        url1 = "https://zh.wikipedia.org/w"
+    url = url1 + "/api.php"
+    urlthumb = url1 + "/thumb.php"
 
 def countlist(l):
     lc = 0
@@ -119,10 +120,11 @@ def credits():
     print("Licence: CC BY-SA 3.0")
 
 def help():
-    print("login: Use your username or botpassword to login")
-    print("view : View a page's source code")
-    print("edit : Edit a page")
-    print("exit : Exit TextWikiEdit")
+    print("login : Use your username or botpassword to login")
+    print("view  : View a page's source code")
+    print("edit  : Edit a page")
+    print("exit  : Exit TextWikiEdit")
+    print("chroot: Change the target wiki (this will run at startup)")
 
 def getimage(url,img):
     PARAMS_getimage ={
@@ -132,7 +134,8 @@ def getimage(url,img):
     newFileByteArray = bytearray(requests.get(url,params=PARAMS_getimage).content)
     newFile = open(str(img), "wb+")
     newFile.write(newFileByteArray)
-
+    
+chroot()
 print("Wikiedit Version stable 1.5 branch 0")
 print("Type \"credits\", \"help\" for more information.")
 while True:
@@ -166,6 +169,10 @@ while True:
                 getimage(urlthumb,command[1])
         elif command[0] == "exit":
             exit(1)
+        elif command[0] == "chroot":
+            chroot()
+        elif command[0] == "reload":
+            os.system("/usr/bin/env python3 " +str(__file__));exit(1)
         else:
             print(str(command[0]) + ": Command not found")
     except KeyboardInterrupt:
