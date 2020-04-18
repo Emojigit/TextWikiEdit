@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/env python3
 # Wikiedit
 # Create by [[zh:U:Emojiwiki]]
 # CC BY-SA 3.0
@@ -105,9 +105,19 @@ def view(url,pagename):
     if notfound == 0:
         os.system("less /tmp/Wikiedit" + username)
 
+def credits():
+    print("Wikiedit Version alpha 0.1 branch 0")
+    print("Author: Emojiwiki")
+    print("Licence: CC BY-SA 3.0")
 
+def help():
+    print("login: Use your username or botpassword to login")
+    print("view : View a page's source code")
+    print("edit : Edit a page")
+    print("exit : Exit TextWikiEdit")
 
-print("Wikiedit Version alpha 0.1 branch 0")
+print("Wikiedit Version beta 1.0 branch 0")
+print("Type \"credits\", \"help\" for more information.")
 while True:
     try:
         command = str(input("Wikiedit > ")).split( )
@@ -122,6 +132,10 @@ while True:
             userpasswd = "0164393648351932643849"
         elif command[0] == "view":
             view(url,command[1])
+        elif command[0] == "credits":
+            credits()
+        elif command[0] == "help":
+            help()
         elif command[0] == "exit":
             exit(1)
         else:
