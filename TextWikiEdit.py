@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 # Wikiedit
 # Create by [[zh:U:Emojiwiki]]
-# CC BY-SA 3.0
 
 import requests
 import os
