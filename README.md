@@ -2,7 +2,9 @@
 see https://zh.wikipedia.org/wiki/User:Emojiwiki/TextWikiEdit
 
 Licence:
+<br>
 Readme.md : CC BY SA 3.0
+<br>
 Code : MIT
 
 MIT :
